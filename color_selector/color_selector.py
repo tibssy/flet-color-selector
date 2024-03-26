@@ -3,7 +3,7 @@ from typing import List, Optional
 from flet import RoundedRectangleBorder, BoxShadow, UserControl, LinearGradient
 from flet_core.buttons import ButtonStyle
 from flet_core.control import OptionalNumber
-from flet_core.types import MainAxisAlignment, Padding, Margin, Offset, BorderRadiusValue
+from flet_core.types import MainAxisAlignment, Padding, Margin, Offset, BorderRadiusValue, ScaleValue
 from flet_core import (
     AlertDialog,
     Stack,
@@ -73,6 +73,7 @@ class RoundedElevatedButton(ElevatedButton):
             bgcolor: Optional[str] = None,
             color: Optional[str] = None,
             radius: BorderRadiusValue = None,
+            scale: ScaleValue = None,
             on_click=None
     ):
         super().__init__()
@@ -81,6 +82,7 @@ class RoundedElevatedButton(ElevatedButton):
         self.color = color
         self.style = ButtonStyle(shape=RoundedRectangleBorder(radius=radius))
         self.elevation = 2
+        self.scale = scale
         self.on_click = on_click
 
     def click(self):
@@ -129,6 +131,7 @@ class ColorSelector(AlertDialog):
         self.control_row = self.create_control_row()
 
     def setup_ui(self):
+        self.modal = True
         self.shape = RoundedRectangleBorder(radius=10)
         self.content_padding = Padding(10, 10, 10, 0)
         self.elevation = 10
@@ -234,4 +237,6 @@ class ColorSelector(AlertDialog):
 
     def close_dialog(self, e):
         self.open = False
+        self.open_button.update()
         e.page.update()
+        e.page.dialog = None

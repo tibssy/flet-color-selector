@@ -9,6 +9,10 @@ def main(page: ft.Page):
         ft.ElevatedButton(
             bgcolor='#1fa8f5',
             on_click=color_selector.open_dialog
+        ),
+        ft.ElevatedButton(
+            bgcolor='#aa88f5',
+            on_click=color_selector.open_dialog
         )
     )
 
