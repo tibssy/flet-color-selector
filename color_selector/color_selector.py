@@ -91,8 +91,9 @@ class RoundedElevatedButton(ElevatedButton):
 
 
 class ColorSelector(AlertDialog):
-    def __init__(self):
+    def __init__(self, on_dismiss=None):
         super().__init__()
+        self.on_dismiss = on_dismiss
         self.shadow = None
         self.hue_slider = None
         self.saturation_slider = None

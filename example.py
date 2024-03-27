@@ -3,7 +3,7 @@ from color_selector import ColorSelector
 
 
 def main(page: ft.Page):
-    color_selector = ColorSelector()
+    color_selector = ColorSelector(on_dismiss=lambda e: print(e.control.open_button.bgcolor))
 
     page.add(
         ft.ElevatedButton(
