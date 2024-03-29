@@ -1,5 +1,5 @@
 import flet as ft
-from color_selector import ColorSelector
+from flet_color_selector import ColorSelector
 
 
 def main(page: ft.Page):
