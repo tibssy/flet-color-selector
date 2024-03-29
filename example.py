@@ -2,7 +2,6 @@ import flet as ft
 from color_selector import ColorSelector
 
 
-
 def main(page: ft.Page):
     color_selector = ColorSelector(on_color=lambda color: print(color))
 
