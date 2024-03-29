@@ -21,14 +21,16 @@ class GradientSlider(UserControl):
     def __init__(
             self,
             colors: List = None,
+            slider_range: int = None,
             value: OptionalNumber = None,
             shadow=None,
             on_change=None
     ):
         super().__init__()
-        self.shadow = shadow
         self.colors = colors
+        self.slider_range = slider_range
         self.value = value
+        self.shadow = shadow
         self.on_change = on_change
         self.container = Container(
             margin=Margin(9, 1, 9, 0),
@@ -43,7 +45,7 @@ class GradientSlider(UserControl):
             inactive_color='#00000000',
             thumb_color='#aaffffff',
             min=0,
-            max=1024,
+            max=self.slider_range,
             value=self.value,
             on_change=self.on_value
         )
@@ -111,7 +113,7 @@ class ColorSelector(AlertDialog):
             'saturation': ['#ffffff', '#ff0000'],
             'value': ['#000000', '#ff0000']
         }
-        self.slider_range = 1024
+        self.slider_range = 256
         self.shadow = BoxShadow(
             spread_radius=0,
             blur_radius=2,
@@ -127,8 +129,8 @@ class ColorSelector(AlertDialog):
             shadow=self.shadow
         )
         self.hue_slider = self.create_gradient_slider(*slider_colors.get('hue'), initial_value=0)
-        self.saturation_slider = self.create_gradient_slider(*slider_colors.get('saturation'), initial_value=1024)
-        self.value_slider = self.create_gradient_slider(*slider_colors.get('value'), initial_value=1024)
+        self.saturation_slider = self.create_gradient_slider(*slider_colors.get('saturation'), initial_value=self.slider_range)
+        self.value_slider = self.create_gradient_slider(*slider_colors.get('value'), initial_value=self.slider_range)
         self.control_row = self.create_control_row()
 
     def setup_ui(self):
@@ -150,10 +152,11 @@ class ColorSelector(AlertDialog):
 
     def create_gradient_slider(self, *colors, initial_value):
         return GradientSlider(
-            shadow=self.shadow,
+            colors=list(colors),
+            slider_range=self.slider_range,
             value=initial_value,
-            on_change=self.on_slider_change,
-            colors=list(colors)
+            shadow=self.shadow,
+            on_change=self.on_slider_change
         )
 
     def create_control_row(self):

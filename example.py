@@ -3,6 +3,8 @@ from color_selector import ColorSelector
 
 
 def main(page: ft.Page):
+    # page.theme_mode = 'dark'
+
     color_selector = ColorSelector(on_color=lambda color: print(color))
 
     page.add(
